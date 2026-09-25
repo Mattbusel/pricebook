@@ -81,6 +81,7 @@ struct NewItemView: View {
         if !c.isEmpty { book.link(code: c, to: it.id) }
         dismiss()
         if let onCreate { onCreate(it) } else {
+            router.tab = .book
             router.path.append(it.id)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { router.logging = it.id }
         }

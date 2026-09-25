@@ -230,6 +230,14 @@ struct CheckView: View {
                     Text("Type what the shelf says. Pricebook checks it against everything you have paid.").font(.ui(14.5, .medium)).foregroundStyle(K.ink2)
                 }
                 .padding(.top, 14)
+                if book.items.isEmpty {
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Your book is empty").font(.display(20)).foregroundStyle(K.ink)
+                        Text("Add an item and a couple of prices first. Then this page tells you whether a new price is a deal.").font(.ui(14)).foregroundStyle(K.ink2)
+                        BigButton(title: "Add an item", icon: "plus") { router.newItem = NewItemSeed() }
+                    }
+                    .card(18)
+                }
                 Button { picking = true } label: {
                     HStack(spacing: 12) {
                         Image(systemName: "basket.fill").font(.system(size: 18, weight: .semibold)).foregroundStyle(K.green)
