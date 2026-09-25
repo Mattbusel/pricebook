@@ -1,0 +1,1 @@
+Scan a barcode in the aisle and see at once whether the price is a real deal, a normal price or a fake sale, judged against what you have paid yourself.

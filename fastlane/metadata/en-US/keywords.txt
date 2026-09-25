@@ -1,0 +1,1 @@
+grocery,price,book,unit,compare,barcode,scanner,coupon,sale,budget,shopping,list,costco,aldi,save

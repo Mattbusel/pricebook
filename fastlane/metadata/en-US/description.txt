@@ -1,0 +1,29 @@
+Pricebook is the price book frugal shoppers have always kept in a notebook, rebuilt for the phone in your hand in the aisle.
+
+Point it at a barcode, type the price on the shelf tag, and it tells you straight away: Stock up, Good price, Normal, Pricey, or Fake sale. Every verdict comes from your own history, at the stores you actually use, not from ads or a price feed.
+
+SCAN IN THE AISLE
+• Reads the barcode with the camera, even on a crowded shelf
+• The first time, tell it what the item is. After that the barcode opens it instantly
+• A rubber-stamp verdict, the reasons behind it, and a gauge showing where this price sits between your best and worst
+• If another store usually has it for less, it says which one and by how much
+
+THE PRICE BOOK
+• Every item with its price history at every store, drawn as a chart with the sales marked
+• Your best, usual and worst price per ounce, pound, litre or each
+• Where it is cheapest, and what switching stores would save you in a year at your pace
+• How often it goes on sale, and how many to buy to last until the next one
+
+WHICH IS CHEAPER?
+• Compare two to six sizes and deals: multi-packs, 2 for $5, buy one get one, percent off, coupons
+• Weight, volume and count are converted for you
+• The best buy is marked, with what the others cost extra
+
+A SMARTER LIST
+• Add what you need and the list sorts itself by the store where each thing is usually cheapest
+• A trip total, and how much splitting the trip saves against the cheapest single store
+• Skip a store this week with one tap and the list rearranges
+
+Stores, aisles and units are yours to change. Export every price you have logged as a spreadsheet.
+
+No account, no ads, no tracking, no subscription. Your prices stay on your phone.
