@@ -59,6 +59,7 @@ struct PriceForm: View {
                 .background(K.tag)
                 .overlay(alignment: .top) { Rectangle().fill(K.ink).frame(height: 4) }
                 .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                .compositingGroup()
                 .shadow(color: K.ink.opacity(0.18), radius: 0, x: 0, y: 2)
 
                 Button {

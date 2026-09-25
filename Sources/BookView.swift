@@ -59,11 +59,7 @@ struct BookView: View {
 
     private var dealStrip: some View {
         VStack(alignment: .leading, spacing: 10) {
-            HStack {
-                Kicker("Good prices you just logged", color: K.green)
-                Spacer()
-                Image(systemName: "arrow.right").font(.system(size: 11, weight: .bold)).foregroundStyle(K.green)
-            }
+            Kicker("Good prices you just logged", color: K.green)
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 12) {
                     ForEach(Array(deals.prefix(8)), id: \.0.id) { d in
@@ -139,10 +135,9 @@ struct BookView: View {
                     if i < its.count - 1 { Rectangle().fill(K.line).frame(height: 1).padding(.leading, 16) }
                 }
             }
-            .background(RoundedRectangle(cornerRadius: 20, style: .continuous).fill(K.paper))
-            .overlay(RoundedRectangle(cornerRadius: 20, style: .continuous).strokeBorder(K.line, lineWidth: 1))
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-            .shadow(color: K.ink.opacity(0.06), radius: 12, x: 0, y: 6)
+            .background(RoundedRectangle(cornerRadius: 20, style: .continuous).fill(K.paper).shadow(color: K.ink.opacity(0.06), radius: 12, x: 0, y: 6))
+            .overlay(RoundedRectangle(cornerRadius: 20, style: .continuous).strokeBorder(K.line, lineWidth: 1))
         }
     }
 
@@ -339,6 +334,7 @@ struct ItemView: View {
             }
             .chartLegend(position: .bottom, alignment: .leading, spacing: 10)
             .frame(height: 210)
+            .padding(.top, 10)
             .mask(alignment: .leading) { Rectangle().frame(maxWidth: appeared ? .infinity : 0) }
         }
         .card(16)
@@ -363,7 +359,7 @@ struct ItemView: View {
                     Text(unitText(v, it.show)).font(.price(18)).foregroundStyle(K.ink)
                     Group {
                         if k == rows.first?.key {
-                            Text("CHEAPEST").font(.kick(9)).foregroundStyle(.white).padding(.horizontal, 7).frame(height: 20).background(Capsule().fill(K.green))
+                            Text("BEST").font(.kick(9.5)).foregroundStyle(.white).padding(.horizontal, 7).frame(height: 20).background(Capsule().fill(K.green))
                         } else {
                             Text("+" + pct(v / bestV - 1)).font(.ui(11.5, .bold)).foregroundStyle(K.red).padding(.horizontal, 7).frame(height: 20).background(Capsule().fill(K.redSoft))
                         }

@@ -92,6 +92,7 @@ struct ScanView: View {
         }
         .background(Color.black)
         .preferredColorScheme(.light)
+        .statusBarHidden(true)
         .animation(.spring(response: 0.45, dampingFraction: 0.84), value: phase)
         .sensoryFeedback(.success, trigger: code)
         .sheet(isPresented: $picking) {

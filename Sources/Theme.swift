@@ -120,10 +120,12 @@ extension View {
     /// White card on kraft, with a soft paper shadow.
     func card(_ pad: CGFloat = 16, radius: CGFloat = 20) -> some View {
         self.padding(pad)
-            .background(RoundedRectangle(cornerRadius: radius, style: .continuous).fill(K.paper))
+            .background(
+                RoundedRectangle(cornerRadius: radius, style: .continuous).fill(K.paper)
+                    .shadow(color: K.ink.opacity(0.07), radius: 0, x: 0, y: 2)
+                    .shadow(color: K.ink.opacity(0.06), radius: 14, x: 0, y: 8)
+            )
             .overlay(RoundedRectangle(cornerRadius: radius, style: .continuous).strokeBorder(K.line, lineWidth: 1))
-            .shadow(color: K.ink.opacity(0.07), radius: 0, x: 0, y: 2)
-            .shadow(color: K.ink.opacity(0.06), radius: 14, x: 0, y: 8)
     }
 }
 
@@ -155,6 +157,7 @@ struct ShelfTag: View {
         .background(bg)
         .overlay(alignment: .top) { Rectangle().fill(style == .green ? K.greenDeep : K.ink).frame(height: 3) }
         .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
+        .compositingGroup()
         .shadow(color: K.ink.opacity(0.14), radius: 0, x: 0, y: 1.5)
     }
 }
@@ -243,9 +246,8 @@ struct BigButton: View {
             }
             .frame(maxWidth: .infinity).frame(height: 54)
             .foregroundStyle(fg)
-            .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(fill))
+            .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(fill).shadow(color: (fill == K.paper ? K.ink.opacity(0.1) : fill.opacity(0.35)), radius: 10, x: 0, y: 6))
             .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).strokeBorder(.black.opacity(0.08), lineWidth: 1))
-            .shadow(color: fill.opacity(0.35), radius: 10, x: 0, y: 6)
         }
         .buttonStyle(Squish())
     }
@@ -258,8 +260,7 @@ struct CircleButton: View {
         Button(action: action) {
             Image(systemName: icon).font(.system(size: 15, weight: .bold)).foregroundStyle(K.ink)
                 .frame(width: 40, height: 40)
-                .background(Circle().fill(K.paper)).overlay(Circle().strokeBorder(K.line2, lineWidth: 1))
-                .shadow(color: K.ink.opacity(0.08), radius: 6, x: 0, y: 3)
+                .background(Circle().fill(K.paper).shadow(color: K.ink.opacity(0.08), radius: 6, x: 0, y: 3)).overlay(Circle().strokeBorder(K.line2, lineWidth: 1))
         }
         .buttonStyle(Squish(scale: 0.9))
     }

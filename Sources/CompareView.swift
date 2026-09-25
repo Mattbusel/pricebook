@@ -224,9 +224,8 @@ struct OptionCard: View {
             .padding(.top, 2)
         }
         .padding(16)
-        .background(RoundedRectangle(cornerRadius: 22, style: .continuous).fill(K.paper))
+        .background(RoundedRectangle(cornerRadius: 22, style: .continuous).fill(K.paper).shadow(color: (isBest ? K.green : K.ink).opacity(isBest ? 0.18 : 0.06), radius: 12, x: 0, y: 6))
         .overlay(RoundedRectangle(cornerRadius: 22, style: .continuous).strokeBorder(isBest ? K.green : K.line, lineWidth: isBest ? 2.5 : 1))
-        .shadow(color: (isBest ? K.green : K.ink).opacity(isBest ? 0.18 : 0.06), radius: 12, x: 0, y: 6)
         .scaleEffect(isBest ? 1 : 0.985)
         .animation(.spring(response: 0.35, dampingFraction: 0.6), value: isBest)
         .sensoryFeedback(.impact(weight: .light), trigger: isBest)

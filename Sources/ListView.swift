@@ -187,7 +187,7 @@ struct ListView: View {
         .background(RoundedRectangle(cornerRadius: 20, style: .continuous).fill(K.paper))
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .overlay(RoundedRectangle(cornerRadius: 20, style: .continuous).strokeBorder(K.line, lineWidth: 1))
-        .shadow(color: K.ink.opacity(0.06), radius: 12, x: 0, y: 6)
+        .background(RoundedRectangle(cornerRadius: 20, style: .continuous).fill(K.paper).shadow(color: K.ink.opacity(0.06), radius: 12, x: 0, y: 6))
     }
 
     private func shareText(_ trip: Trip) -> String {
