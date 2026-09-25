@@ -35,7 +35,7 @@ KEY_PATH = Path(
 )
 
 BUNDLE_ID = "com.mattbusel.pricebook"
-APP_NAME = "Pricebook: Grocery Prices"
+APP_NAME = "Pricebook: Grocery Price Log"
 SKU = "pricebook-1"
 PRIMARY_LOCALE = "en-US"
 
