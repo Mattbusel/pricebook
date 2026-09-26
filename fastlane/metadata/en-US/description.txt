@@ -2,6 +2,15 @@ Pricebook is the price book frugal shoppers have always kept in a notebook, rebu
 
 Point it at a barcode, type the price on the shelf tag, and it tells you straight away: Stock up, Good price, Normal, Pricey, or Fake sale. Every verdict comes from your own history, at the stores you actually use, not from ads or a price feed.
 
+FREE TO USE
+Scanning, the verdicts, compare and the smart list are free, with room for 30 items in your book. No ads, no trial clock.
+
+PRICEBOOK PRO, ONE TIME
+One purchase, no subscription, Family Sharing on. Pro adds:
+• Unlimited items
+• The six-month price history chart for every item, a line per store, sales marked
+• Export every price you have logged as a spreadsheet (CSV)
+
 SCAN IN THE AISLE
 • Reads the barcode with the camera, even on a crowded shelf
 • The first time, tell it what the item is. After that the barcode opens it instantly
@@ -9,7 +18,7 @@ SCAN IN THE AISLE
 • If another store usually has it for less, it says which one and by how much
 
 THE PRICE BOOK
-• Every item with its price history at every store, drawn as a chart with the sales marked
+• Every item with its price history at every store, drawn as a chart with the sales marked (Pro)
 • Your best, usual and worst price per ounce, pound, litre or each
 • Where it is cheapest, and what switching stores would save you in a year at your pace
 • How often it goes on sale, and how many to buy to last until the next one
@@ -24,6 +33,6 @@ A SMARTER LIST
 • A trip total, and how much splitting the trip saves against the cheapest single store
 • Skip a store this week with one tap and the list rearranges
 
-Stores, aisles and units are yours to change. Export every price you have logged as a spreadsheet.
+Stores, aisles and units are yours to change. Export every price you have logged as a spreadsheet (Pro).
 
 No account, no ads, no tracking, no subscription. Your prices stay on your phone.
