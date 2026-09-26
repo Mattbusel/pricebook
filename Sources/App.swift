@@ -5,14 +5,19 @@ import Observation
 struct PricebookApp: App {
     @State private var book: Book
     @State private var router = Router()
+    @State private var pro: Pro
     init() {
         let a = ProcessInfo.processInfo.arguments
-        _book = State(initialValue: Book(demo: a.contains("-shot") || a.contains("-demoAutoplay")))
+        let demo = a.contains("-shot") || a.contains("-demoAutoplay")
+        _book = State(initialValue: Book(demo: demo))
+        // Screenshots and the review recording show Pro; the paywall shot shows it locked.
+        let shot = a.firstIndex(of: "-shot").flatMap { a.indices.contains($0 + 1) ? a[$0 + 1] : nil }
+        _pro = State(initialValue: demo ? Pro(forced: shot != "paywall") : Pro())
     }
     var body: some Scene {
         WindowGroup {
-            RootView().environment(book).environment(router).preferredColorScheme(.light).tint(K.green)
-                .onAppear { router.applyShotArgs(book); Autopilot.shared.run(book, router) }
+            RootView().environment(book).environment(router).environment(pro).preferredColorScheme(.light).tint(K.green)
+                .onAppear { router.applyShotArgs(book, pro); Autopilot.shared.run(book, router) }
         }
     }
 }
@@ -55,7 +60,8 @@ final class Router {
         }
     }
 
-    func applyShotArgs(_ b: Book) {
+    @MainActor
+    func applyShotArgs(_ b: Book, _ pro: Pro) {
         let a = ProcessInfo.processInfo.arguments
         guard let i = a.firstIndex(of: "-shot"), i + 1 < a.count else { return }
         let coffee = b.items.first { $0.name == "Ground coffee" }
@@ -66,6 +72,9 @@ final class Router {
         case "compare":
             options = Demo.compare(); usage = "2"; usageUnit = .lb; tab = .compare
         case "list": tab = .list
+        case "paywall":
+            if let c = coffee { path = [c.id] }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { pro.ask(.chart) }
         default: break
         }
     }
@@ -76,6 +85,7 @@ struct NewItemSeed: Identifiable { var id = UUID(); var name = ""; var code = ""
 struct RootView: View {
     @Environment(Book.self) private var book
     @Environment(Router.self) private var router
+    @Environment(Pro.self) private var pro
     var body: some View {
         @Bindable var router = router
         ZStack(alignment: .bottom) {
@@ -105,6 +115,14 @@ struct RootView: View {
         .sheet(item: Binding(get: { router.editing.map(IDBox.init) }, set: { router.editing = $0?.id })) { box in
             EditItemView(itemID: box.id).presentationBackground(K.kraft).presentationCornerRadius(28)
         }
+        // Settings and the new item form host their own paywall; this one is for the pages underneath.
+        .sheet(item: Binding(get: { otherSheet ? nil : pro.paywall }, set: { pro.paywall = $0 })) { r in
+            PaywallView(reason: r).presentationBackground(K.kraft).presentationCornerRadius(28)
+        }
+    }
+
+    private var otherSheet: Bool {
+        router.scanning || router.settings || router.newItem != nil || router.logging != nil || router.editing != nil
     }
 }
 

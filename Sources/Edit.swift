@@ -5,6 +5,7 @@ import SwiftUI
 struct NewItemView: View {
     @Environment(Book.self) private var book
     @Environment(Router.self) private var router
+    @Environment(Pro.self) private var pro
     @Environment(\.dismiss) private var dismiss
     let seed: NewItemSeed
     var onCreate: ((Item) -> Void)? = nil
@@ -14,8 +15,22 @@ struct NewItemView: View {
     @State private var show: Unit = .oz
     @State private var code = ""
     @FocusState private var focus: Bool
+    /// Decided once, when the sheet opens: a free book at its item limit shows the paywall instead.
+    @State private var blocked: Bool? = nil
 
     var body: some View {
+        Group {
+            switch blocked {
+            case .none: Color.clear
+            case .some(true): PaywallView(reason: .items, embedded: true)
+            case .some(false): form
+            }
+        }
+        .onAppear { if blocked == nil { blocked = !pro.canAdd(book) } }
+        .onChange(of: pro.unlocked) { _, now in if now { blocked = false } }
+    }
+
+    private var form: some View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 18) {
@@ -233,6 +248,7 @@ struct EditItemView: View {
 
 struct SettingsView: View {
     @Environment(Book.self) private var book
+    @Environment(Pro.self) private var pro
     @Environment(\.dismiss) private var dismiss
     @State private var newShop = ""
     @State private var newCat = ""
@@ -294,9 +310,16 @@ struct SettingsView: View {
                             } label: { Image(systemName: "plus").font(.system(size: 18, weight: .bold)).foregroundStyle(.white).frame(width: 50, height: 50).background(RoundedRectangle(cornerRadius: 14).fill(K.green)) }
                         }
                     }
+                    ProSection()
                     VStack(alignment: .leading, spacing: 10) {
                         Kicker("Your data")
-                        if let csvURL {
+                        if !pro.unlocked {
+                            Button { pro.ask(.export) } label: {
+                                Label("Export every price as a spreadsheet (CSV)", systemImage: "lock.fill").font(.ui(15.5, .semibold)).foregroundStyle(K.ink)
+                                    .frame(maxWidth: .infinity, alignment: .leading).padding(.horizontal, 14).frame(height: 52)
+                                    .background(RoundedRectangle(cornerRadius: 14).fill(K.paper))
+                            }
+                        } else if let csvURL {
                             ShareLink(item: csvURL) {
                                 Label("Export every price as a spreadsheet (CSV)", systemImage: "tablecells").font(.ui(15.5, .semibold)).foregroundStyle(K.ink)
                                     .frame(maxWidth: .infinity, alignment: .leading).padding(.horizontal, 14).frame(height: 52)
@@ -311,7 +334,7 @@ struct SettingsView: View {
                     }
                     VStack(alignment: .leading, spacing: 6) {
                         Text("No account, no ads, no tracking.").font(.display(17)).foregroundStyle(K.ink)
-                        Text("Everything you log stays on this phone. Pricebook never connects to the internet.").font(.ui(14)).foregroundStyle(K.ink2)
+                        Text("Everything you log stays on this phone. Pricebook never sends your data anywhere; the only time it talks to the internet is to Apple, when you buy or restore Pro.").font(.ui(14)).foregroundStyle(K.ink2)
                     }
                     .padding(.top, 4)
                 }
@@ -324,5 +347,8 @@ struct SettingsView: View {
         }
         .onAppear { csvURL = book.csv() }
         .onChange(of: book.shops) { book.save() }
+        .sheet(item: Binding(get: { pro.paywall }, set: { pro.paywall = $0 })) { r in
+            PaywallView(reason: r).presentationBackground(K.kraft).presentationCornerRadius(28)
+        }
     }
 }

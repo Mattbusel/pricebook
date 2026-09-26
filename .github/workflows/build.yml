@@ -66,6 +66,11 @@ jobs:
           xcrun simctl launch "$udid" com.mattbusel.pricebook -shot list
           sleep 8
           xcrun simctl io "$udid" screenshot "shots/05.png"
+          # The IAP review screenshot: the real paywall, Pro locked. Not a store screenshot.
+          xcrun simctl terminate "$udid" com.mattbusel.pricebook || true
+          xcrun simctl launch "$udid" com.mattbusel.pricebook -shot paywall
+          sleep 9
+          xcrun simctl io "$udid" screenshot "shots/iap-paywall.png"
       - uses: actions/upload-artifact@v4
         if: always()
         with:

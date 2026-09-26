@@ -227,6 +227,7 @@ struct DealCard: View {
 struct ItemView: View {
     @Environment(Book.self) private var book
     @Environment(Router.self) private var router
+    @Environment(Pro.self) private var pro
     @Environment(\.dismiss) private var dismiss
     let itemID: UUID
     @State private var appeared = false
@@ -263,7 +264,7 @@ struct ItemView: View {
                 }
                 if let s {
                     tags(it, s)
-                    chart(it, s)
+                    if pro.unlocked { chart(it, s) } else { LockedChart(values: it.spark()) }
                     stores(it, s)
                 }
                 HStack(spacing: 10) {
